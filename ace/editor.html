@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <script src="rgbaColorPicker/pickr.min.js"></script>
+  <script src="gvariables.js"></script>
+<link href="rgbaColorPicker/classic.min.css" rel="stylesheet">
+<link href="rgbaColorPicker/monolith.min.css" rel="stylesheet">
+<link href="rgbaColorPicker/nano.min.css" rel="stylesheet">
+<script src="jquery.js"></script>
+  <style type="text/css" media="screen">
+    body {
+        overflow: hidden;
+    }
+    .cinput
+{
+  width: 94%;position: relative;font-size: 15px;
+  margin: 5px 2% 5px 2%;
+  padding: 4px 0px 4px 0px;
+}
+    h1{float:right;font-size:20px;font-family:calibri;margin:5px 5px 0 0}.shim{background-size:cover;border-radius:2px;border:none;background-color:#0063c0;width:30px;height:30px;margin:5px 5px 5px 5px;transition:.4s;padding:0 10px 0 10px;float:left;box-shadow:2px 2px 5px 2px rgba(152,152,152,.37)}.shim:hover{background-color:#645b9c}body{margin:0}.cnt{overflow:auto;width:99%;border:1px solid #5b5b5b;border:none;box-shadow:2px 2px 4px 3px rgba(152,152,152,.37);margin:5px 5px 0 5px;position:relative}.cvd{width:100%;overflow:auto;position:relative}.cvw{float:left;width:48%;height:600px;margin-top:10px;border:1px solid rgba(162,162,162,.4);box-shadow:2px 2px 4px 3px rgba(152,152,152,.37)}iframe{float:right;width:48%;height:600px;margin-top:10px;border-radius:5px;border:1px solid rgba(203,203,203,.51);box-shadow:2px 2px 4px 3px rgba(152,152,152,.37)}
+    .sidenav {
+  height: 80%;
+  width: 0%;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: rgba(17, 17, 17, 0.747);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  text-align:left;
+  overflow-y: auto;
+}
+
+.sidenav a{
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+
+}
+.sidenav p{
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+
+}
+.sidenav a:hover{
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+    #editor {
+        margin: 0;
+        position: absolute;
+        top: 50px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .ntndiv
+    {
+      margin-left: 5px;
+      width:100%;color: white;
+      font-family: calibri;border-top: 1px solid rgba(30, 143, 255, 0.192);
+      transition: 0.4s;
+      font-size: 20px;
+      padding: 10px 0px 10px 10px;
+    }
+    .ntndiv:hover
+    {
+      background-color: rgb(117, 117, 117);
+    }
+    .ntnimg
+    {
+      height: 18px;vertical-align: middle;
+    }
+.myButton {
+	background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+	background-color:#44c767;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+	background-color:#5cbf2a;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}   
+  </style>
+</head>
+<body style="background-color: black;">
+  
+  <div style="display: none;text-align: center;width: 100%;position: fixed;background-color: #00213f63;height: 100%;z-index: 100;padding-top: 50px;" id="AllowStoragediv">
+    <p style="color: rgb(247, 247, 247);font-size: 16px;font-family: calibri;">Please allow storage access to run application.<br/>Our access to storage is limited to directory \HTMLEditor.
+    </br />Restart Application after allowing storage access.</p>
+    <a onclick="allowstorageaccess()" class="myButton">ALLOW</a>
+  </div>
+
+  <div class="sidenav" id="helpdivid">
+    <a href="javascript:void(0)" style="color: white;" class="closebtn" onclick="closeHelp()">&times;</a>
+    <img style="width: 100%;" src="video/Tutimage1.PNG" />
+    <img style="width: 100%;" src="video/Tutimage2.PNG"/>
+    <img style="width: 100%;" src="video/Tutimage3.PNG"/>
+    <video style="width: 100%;" controls>
+      <source src="video/tut.mp4" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+  </div>
+
+<div class="sidenav" id="FileManagerid" style="background-color: #5f5974;z-index: 140;text-align: center;">
+  <a href="javascript:void(0)" style="color: white;" class="closebtn" onclick="closefilemanager()">&times;</a>
+
+  <div id="filenamedivid">
+  <div style="width: 100%;"><p style="color: white;font-size: 16px;font-family: calibri;">Enter File Name</p></div>
+  <div style="width: 100%;"><input id="in-filename" class="cinput" /></div>
+  <div style="width: 100%;text-align: center;position: relative; margin-top: 4px;"><button class="myButton" onclick="savenewfile()">SAVE</button></div>
+  </div>
+  <div id="foldernamedivid">
+    <div style="width: 100%;"><p style="color: white;font-size: 16px;font-family: calibri;">Enter Folder Name</p></div>
+    <div style="width: 100%;"><input id="in-foldername" class="cinput" /></div>
+    <div style="width: 100%;text-align: center;position: relative; margin-top: 4px;"><button class="myButton" onclick="savenewfolder()">SAVE</button></div>
+    </div>
+    <div id="deletedivid">
+      <div style="width: 100%;"><p style="color: white;font-size: 16px;font-family: calibri;" id="deletefilealert">----</p></div>
+      <div style="width: 100%;text-align: center;position: relative; margin-top: 4px;"><button class="myButton" onclick="deletefil()">YES</button></div>
+      </div>
+      <div id="filerenamedivid">
+        <div style="width: 100%;"><p id="renamefilealert" style="color: white;font-size: 16px;font-family: calibri;">Rename File</p></div>
+        <div style="width: 100%;"><input id="in-filerename" class="cinput" /></div>
+        <div style="width: 100%;text-align: center;position: relative; margin-top: 4px;"><button class="myButton" onclick="saverenamefile()">SAVE</button></div>
+        </div>
+</div>
+
+
+  <div id="mySidenav" class="sidenav" onclick="">
+    <span style="color: white;font-family: calibri;margin-left: 5px;" id="IPaddress-sp"></span>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div style="margin-left: 5px;width: 100%;position: relative;">
+    <button id="filecreateid" onClick="createfile()" class="shim" style="background-image: url('Image/AddFolder.png');float: none;" title="Create File"></button>
+    <button id="foldercreateid" onClick="createfolder()" class="shim" style="background-image: url('Image/AddFile.png');float: none;" title="Create Folder"></button>
+    <button onClick="deletefilefolder()" class="shim" style="background-image: url('Image/delete.png');float: none;" title="Create File/folder"></button>
+    <button onClick="showrenamefiledialog()" class="shim" style="background-image: url('Image/Renameff.png');float: none;" title="Rename File/folder"></button>
+  </div>
+    <!--<a href="#">Folder location: </a>-->
+
+  </div>
+
+
+    <div class="cnt" style="">
+        <span style="font-size:30px;cursor:pointer;float: left;color:rgb(25, 69, 112);margin-left: 5px;" onclick="openNav()">&#9776;</span>
+        <button id="fontbut" onClick="fontchanger()" class="shim" style="font-size: 10px;text-align: center;padding: 0;color: white;" title="Change Font Size">12px</button>
+        <button id="thembut" class="shim" onClick="themechanger()" title="Change Theme" style="font-size: 10px;text-align: center;padding: 0;color: white;">THM</button>
+        <button style="font-size: 10px;text-align: center;padding: 0;color: white;" class="shim"  onclick="savefile()">SAVE</button>
+      <div class="shim" title="color picker"><div class="example" ></div> 
+    </div>
+    <button style="font-size: 10px;text-align: center;padding: 0;color: white;" class="shim"  onclick="openHelp()">HELP</button>
+    <p id="filenameid" style="font-family: calibri; vertical-align: center;color: dodgerblue;">-</p></div>   
+<pre id="editor"></pre>
+
+<script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+function allowstorageaccess()
+{
+  Android.askstorage();
+}
+function showstoragepage()
+{
+  document.getElementById("AllowStoragediv").style.display = "";
+}
+function updatelocalIP()
+{
+  var ipad = Android.getIP();
+  document.getElementById("IPaddress-sp").innerHTML = ipad;
+}
+
+function savefonttheme()
+{
+  Android.Savefonttheme(fontcounter,themecounter);
+}
+
+
+
+
+function savefile()
+{
+  if (temppath!="")
+    Android.WriteFile(temppath,editor.getValue());
+}
+
+
+function createfolder()
+{
+  openfilemanager("1");
+  //Android.createfolder(temppath);
+}
+function createfile()
+{
+  openfilemanager("0");
+  //Android.createfile(temppath);
+}
+function deletefilefolder()
+{
+  openfilemanager("2");
+  document.getElementById("deletefilealert").innerHTML = "DELETE?<br/>"+temppath;
+  
+}
+function showrenamefiledialog()
+{
+  openfilemanager("4");
+  document.getElementById("renamefilealert").innerHTML = "Rename?<br/>"+temppath;
+}
+function deletefil()
+{
+  Android.deletefile(temppath);
+  closefilemanager();
+}
+function saverenamefile()
+{
+  var renamef = document.getElementById("in-filerename").value;
+  Android.renamefile(temppathforfilerename,renamef);
+  closefilemanager();
+}
+
+function hideshowfiles(obj)
+{
+  document.getElementById("foldercreateid").style.display = "";
+  document.getElementById("filecreateid").style.display = "";
+  var filoca = obj.dataset.location;
+  temppath = filoca;
+  temppathforfilerename = temppath;
+  var divlists = document.getElementsByClassName("ntndiv");
+  if (obj.dataset.hide=="0")
+  {
+    for (i = 0;i<divlists.length;i++)
+    {
+      if (divlists[i].dataset.location.includes(filoca) && divlists[i].dataset.location.length> filoca.length)
+        divlists[i].style.display = "none";
+    }
+    obj.dataset.hide="1";
+  }
+  else
+  {
+    for (i = 0;i<divlists.length;i++)
+    {
+      if (divlists[i].dataset.location.includes(filoca) && divlists[i].dataset.location.length> filoca.length)
+        divlists[i].style.display = "block";
+    }
+    obj.dataset.hide="0";
+  }
+}
+function cleardirectory(path)
+{
+  var clss = document.getElementsByClassName("ntndiv");
+  var clsslength = clss.length;
+  for (i=0;i<clsslength;i++)
+  {
+    clss[0].remove();
+  }
+  document.getElementById("mySidenav").innerHTML += '<div onclick="hideshowfiles(this)" class="ntndiv" data-location = "'+path+'" data-fname = "main" data-FF = "Folder" ><img class="ntnimg" src="Image/subfolder.png" />main</div>';
+}
+cleardirectory("");
+function openselectedfile(obj)
+{
+  var ext = obj.dataset.fname.split('.').pop();
+  var extensions = ["json","css","html","js","txt","cs","cpp","c","py","map","file","","htaccess"];
+  var testt = false;
+  for (i=0;i<extensions.length;i++)
+  {
+    if (ext.toLowerCase() == extensions[i])
+    {testt = true;break;}
+  }
+  if (testt==true)
+  {
+    document.getElementById("foldercreateid").style.display = "none";
+    document.getElementById("filecreateid").style.display = "none";
+    temppath = obj.dataset.location;
+    temppathforfilerename = temppath;
+    document.getElementById("filenameid").innerHTML = obj.dataset.fname;
+    var strr = Android.ReadFile(temppath);
+    editor.setValue(strr);
+    changethemeonfileselection(ext);
+  }
+  else
+  {
+    document.getElementById("filenameid").innerHTML = obj.dataset.fname;
+    editor.setValue("Cannot Open File of this extension, following extensions supports, json, css, html, js, txt, cs, cpp, c, py, map, file");
+    temppathforfilerename = obj.dataset.location;
+  }
+}
+
+
+function changethemeonfileselection(lang)
+{
+  lang = lang.toLowerCase();
+  if (lang!='js' && lang!='html' && lang!='php' && lang != 'css')
+    lang = 'text';
+  if (lang=='js')
+    lang = 'javascript';
+  var themearray = ["twilight","chrome","tomorrow_night_blue"];
+    editor.setOptions({
+    theme: 'ace/theme/'+themearray[permthemc],
+    mode: 'ace/mode/'+lang
+});
+templanguage = lang;
+}
+function addfolder(foldername,path,lyrnum)
+{
+  var tempstr = "";
+  for (x = 0;x<lyrnum;x++)
+    tempstr += '&ensp;';
+  document.getElementById("mySidenav").innerHTML += '<div class="ntndiv" data-location = "'+path+'" data-fname = "'+foldername+'" data-FF = "Folder" data-hide = "0" onclick="hideshowfiles(this)">'+tempstr+'<img class="ntnimg" src="Image/subfolder.png" />'+foldername+'</div>';
+}
+function addfile(foldername,path,lyrnum)
+{
+  var tempstr = "";
+  for (x = 0;x<lyrnum;x++)
+    tempstr += '&ensp;';
+  document.getElementById("mySidenav").innerHTML += '<div class="ntndiv" data-location = "'+path+'" data-fname = "'+foldername+'" data-FF = "File" onclick="openselectedfile(this)">'+tempstr+'<img class="ntnimg" src="Image/subfile.png" />'+foldername+'</div>';
+}
+
+function themechanger()
+{
+  permthemc = themecounter;
+  savefonttheme();
+    var themearray = ["twilight","chrome","tomorrow_night_blue"];
+    editor.setOptions({
+    theme: 'ace/theme/'+themearray[themecounter],
+    mode: 'ace/mode/'+templanguage
+});
+themecounter++;
+if (themecounter==3)
+    themecounter = 0;
+}
+
+function fontchanger()
+{
+  savefonttheme();
+  var fontarray = ["12px","14px","16px"];
+    document.getElementById('editor').style.fontSize=fontarray[fontcounter];
+    document.getElementById('fontbut').innerHTML = fontarray[fontcounter];
+    fontcounter++;
+if (fontcounter==3)
+    fontcounter = 0;
+
+}
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/html");
+
+    //-------------------------------------------------
+    //https://github.com/Simonwep/pickr
+    const myPickr = new Pickr({
+    el: ".example",
+    theme: 'nano',
+    autoReposition: true,
+    components: { preview: !0, opacity: !0, hue: !0, output: { hex: !0, rgba: !0, hsla: !0, hsva: !0, cmyk: !0, input: !0 }, interaction: { hex: !0, rgba: !0, hsla: !0, hsva: !0, cmyk: !0, input: !0, clear: !0,  save: true  } },
+});
+//myPickr.on('change', (color, source, instance) => {
+  //  console.log('Event: "change"', color, source, instance)
+//});
+//--------------------------------------------
+function openNav() {
+  document.getElementById("mySidenav").style.borderRight = '2px solid rgb(19, 87, 155)';
+  document.getElementById("mySidenav").style.width = "100%";
+  
+}
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("mySidenav").style.borderRight = '0px solid rgb(19, 87, 155)';
+}
+//------------------------------
+function openHelp()
+{
+  document.getElementById("helpdivid").style.borderRight = '2px solid rgb(19, 87, 155)';
+  document.getElementById("helpdivid").style.width = "100%";
+}
+function closeHelp() {
+  document.getElementById("helpdivid").style.width = "0";
+  document.getElementById("helpdivid").style.borderRight = '0px solid rgb(19, 87, 155)';
+}
+//-------------------------------
+function openfilemanager(ff)
+{
+  if (ff == "0")
+  {
+    document.getElementById("filenamedivid").style.display = 'none';
+    document.getElementById("foldernamedivid").style.display = '';
+    document.getElementById("deletedivid").style.display = 'none';
+    document.getElementById("filerenamedivid").style.display = 'none';
+  }
+  else if (ff == "1")
+  {
+    document.getElementById("filenamedivid").style.display = '';
+    document.getElementById("foldernamedivid").style.display = 'none';
+    document.getElementById("deletedivid").style.display = 'none';
+    document.getElementById("filerenamedivid").style.display = 'none';
+  }
+  else if (ff == "2")
+  {
+    document.getElementById("filenamedivid").style.display = 'none';
+    document.getElementById("foldernamedivid").style.display = 'none';
+    document.getElementById("deletedivid").style.display = '';
+    document.getElementById("filerenamedivid").style.display = 'none';
+  }
+  else if (ff == "3")
+  {
+    document.getElementById("filenamedivid").style.display = 'none';
+    document.getElementById("foldernamedivid").style.display = 'none';
+    document.getElementById("deletedivid").style.display = 'none';
+    document.getElementById("filerenamedivid").style.display = 'none';
+  }
+  else if (ff == "4")
+  {
+    document.getElementById("filenamedivid").style.display = 'none';
+    document.getElementById("foldernamedivid").style.display = 'none';
+    document.getElementById("deletedivid").style.display = 'none';
+    document.getElementById("filerenamedivid").style.display = '';
+  }
+  document.getElementById("FileManagerid").style.borderRight = '2px solid rgb(19, 87, 155)';
+  document.getElementById("FileManagerid").style.width = "100%";
+}
+function closefilemanager()
+{
+  document.getElementById("FileManagerid").style.width = "0";
+  document.getElementById("FileManagerid").style.borderRight = '0px solid rgb(19, 87, 155)';
+}
+function savenewfile(){
+  var fff = document.getElementById("in-filename").value;
+  if (fff!="")
+  {
+    Android.createfile(temppath+"/"+fff);
+  }
+  else
+  {
+    Android.ShowToast("Please enter File name!");
+  }
+}
+function savenewfolder()
+{
+  
+  var fff = document.getElementById("in-foldername").value;
+  
+  if (fff!="")
+  {
+    Android.createfolder(temppath+"/"+fff);
+  }
+  else
+  {
+    Android.ShowToast("Please enter Folder Name!");
+  }
+}
+updatelocalIP();
+function loadfonttheme(fontc,themec)
+{
+  themecounter = themec;
+  fontcounter = fontc;
+  permthemc = themecounter;
+  var themearray = ["twilight","chrome","tomorrow_night_blue"];
+    editor.setOptions({
+    theme: 'ace/theme/'+themearray[themecounter],
+    mode: 'ace/mode/html'
+});
+  var fontarray = ["12px","14px","16px"];
+    document.getElementById('editor').style.fontSize=fontarray[fontcounter];
+    document.getElementById('fontbut').innerHTML = fontarray[fontcounter];
+}
+</script>
+
+</body>
+</html>

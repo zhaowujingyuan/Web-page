@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="jquery.js"></script>
+
+
+<style>
+    h1{float:right;font-size:20px;font-family:calibri;margin:5px 5px 0 0}.shim{background-size:cover;border-radius:2px;border:none;background-color:#0063c0;width:30px;height:30px;margin:5px 5px 5px 5px;transition:.4s;padding:0 10px 0 10px;float:left;box-shadow:2px 2px 5px 2px rgba(152,152,152,.37)}.shim:hover{background-color:#645b9c}body{margin:0}.cnt{overflow:auto;width:97%;border:none;box-shadow:2px 2px 4px 3px rgba(152,152,152,.37);margin:5px 5px 0 5px;position:relative;background-color: rgb(59, 59, 59);}.cvd{width:100%;overflow:auto;position:relative}.cvw{float:left;width:48%;height:600px;margin-top:10px;border:1px solid rgba(162,162,162,.4);box-shadow:2px 2px 4px 3px rgba(152,152,152,.37)}iframe{float:right;width:48%;height:600px;margin-top:10px;border-radius:5px;border:1px solid rgba(203,203,203,.51);box-shadow:2px 2px 4px 3px rgba(152,152,152,.37)}
+    </style>
+</head>
+
+<body style="background-color: black;">
+
+
+
+<div class="cnt">
+    <button onClick="ddv()" class="shim" style="background-image: url('Image/viewonly.png');" title="Show Preview Only"></button>
+    <button class="shim" onClick="cdv()" title="Show Code Only" style="background-image: url('Image/codeonly.png')";></button>
+    <!--<button style="background-image: url('Image/Arefresh.png')" class="shim" title="ON/OFF LOCALHOST"  onclick="aiu()"></button>-->
+    <!--<button style="background-image: url('Image/openinbrowser.png')" class="shim" title="OPEN IN BROWSER"  onclick="openbrowser()"></button>-->
+<h1 style="color: white;">HTML Editor</h1></div>
+
+
+<script>
+
+function openbrowser()//for future update
+{
+    Android.openbrowser();
+}
+
+
+
+function getWidth() {
+    return Math.max(document.body.scrollWidth, document.documentElement.scrollWidth, document.body.offsetWidth, document.documentElement.offsetWidth, document.documentElement.clientWidth);
+}
+
+
+var tssr = !1;
+function aiu() {
+    0 == tssr ? ((document.getElementById("rfr").style.backgroundColor = "rgba(0,160,3,1.00)"), (tssr = !0)) : ((document.getElementById("rfr").style.backgroundColor = "rgba(0,99,192,1.00)"), (tssr = !1));
+}
+
+
+
+function cdv()
+{
+    Android.ShowCode();
+}  
+
+function ddv()
+{
+    Android.ShowPreview();
+}
+    </script>
+</body>
+</html>
