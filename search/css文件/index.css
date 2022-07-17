@@ -1,0 +1,46 @@
+body{
+    background: #f4f4f4;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+/*.center{*/
+/*    text-align: center;*/
+/*    font-size: 40px;*/
+/*    color: #35477d;*/
+/*}*/
+.ssk{
+    height: 40px;
+    font-size: 20px;
+    width: 300px;
+    color: #10316b;
+    border-color: #69779b;
+    background: rgba(248,248,255,0.3);
+}
+.ssk:hover{
+    color: white;
+    border-color: #35477d;
+    transition-duration: 300ms;
+    background: rgba(53,71,125,0.5);
+}
+.kj{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.anniu{
+    height: 40px;
+    width: 100px;
+    color:#2d3561;
+    border-color: #35477d;
+    background: rgba(234,234,234,0.5);
+    font-size: 20px;
+}
+.anniu:hover{
+    color:white;
+    border-color:#69779b;
+    background:rgba(45,53,97,0.5);
+    transition-duration: 300ms;
+}

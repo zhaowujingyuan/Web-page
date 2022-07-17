@@ -1,0 +1,28 @@
+#menu{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: rgba(113,137,191,0.3);
+}
+#menu li{
+    list-style: none;
+    display: inline-block;
+}
+#menu li a{
+    text-decoration: none;
+    position: relative;
+    color: #454d66;
+    font-size: 25px;
+    font-weight: 700;
+    font-family: sans-serif;
+    overflow: hidden;
+    display: block;
+    transition-delay: 500ms;
+    padding: 14px 30px;
+    text-transform: uppercase;
+}
+#menu li:hover{
+    background:rgba(248,248,255,0.5);
+    /*transition-delay: 50ms;*/
+    transition-duration: 300ms;
+}
