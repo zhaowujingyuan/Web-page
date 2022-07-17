@@ -1,0 +1,53 @@
+
+<html lang="ch">
+    <head>
+        <title>high起始页 v1.0</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css文件/index.css">
+        <link rel="stylesheet" type="text/css" href="css文件/dhl.css">
+        <link rel="stylesheet" type="text/css" href="css文件/time.css">
+        <script src="js文件/index.js"></script>
+    </head>
+    <body>
+    <!--<h1 class="center">梧桐起始页 v1.0</h1>-->
+    <script>
+        var t = null;
+        t = setTimeout(time,1000);//開始运行
+        function time()
+        {
+            clearTimeout(t);//清除定时器
+            dt = new Date();
+            var h=dt.getHours();//获取时
+            var m=dt.getMinutes();//获取分
+            document.getElementById("showTime").innerHTML =h+"时"+m+"分";
+            t = setTimeout(time,1000); //设定定时器，循环运行
+        }
+    </script>
+    <div class="time">
+        <label id="showTime"></label>
+    </div>
+    <div class="kj">
+        <form onsubmit="return search()">
+            <input type=text class="ssk" autocomplete="off" autofocus id="search_input">
+            <button class="anniu" onclick="return search()">搜索</button>
+        </form>
+    </div>
+    </body>
+    </html>
+    <h1>
+        欢迎使用
+        high起始页 v1.0！
+    </h1>
+    <img src="photo/img28.jpg" alt="windows11中的一张背景图片" title="熟悉吗？熟悉就对了" />
+    <style>
+        h1{
+        font-family:华文中宋;
+        font-weight:normal;
+        }
+        </style>
+        <style>
+            p{
+            font-family:华文中宋;
+            font-weight:normal;
+            }
+            </style>
