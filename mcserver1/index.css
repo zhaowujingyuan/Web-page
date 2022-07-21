@@ -8,5 +8,8 @@ h1 {
 }
 p {
     font-family:"Times New Roman";
-    font-size:35px;
+    font-size:20px;
+}
+h3 {
+    text-align:center;
 }
